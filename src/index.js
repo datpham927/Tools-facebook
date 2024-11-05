@@ -1,6 +1,8 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
  const {createFacebookPost}=require("./createFacebookPost")
+ const readGroupUrls = require('./docfile');
+ const contents = require('./content');
  
 
 async function postToFacebook() {
@@ -16,10 +18,9 @@ async function postToFacebook() {
   
   try {
     // await loginToFacebook(driver);
-    const postContent = `Hi cả nhà! Hôm nay mình chia sẻ hình ảnh phòng trọ sau khi trang trí lại.`;
-    const imagePaths = ["D:\\shoppe\\8\\4.jpg", "D:\\shoppe\\8\\1.jpg"];
-
-    const groupUrls=["https://www.facebook.com/groups/4844951782221599"]
+    const postContent =contents.text
+    const imagePaths = contents.images;
+    const groupUrls = await readGroupUrls();
     for (const groupUrl of groupUrls) {
       await driver.get(groupUrl);
       await createFacebookPost(driver, postContent, imagePaths);
@@ -27,7 +28,7 @@ async function postToFacebook() {
   } catch (err) {
     console.error("Có lỗi xảy ra:", err);
   } finally {
-    await driver.quit();
+    // await driver.quit();
   }
 }
 
