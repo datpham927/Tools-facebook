@@ -18,13 +18,17 @@ async function postToFacebook() {
   
   try {
     // await loginToFacebook(driver);
-    const postContent =contents.text
-    const imagePaths = contents.images;
+     
     const groupUrls = await readGroupUrls();
     for (const groupUrl of groupUrls) {
+      console.log("==== ",groupUrl,"====")
+      const randomNumber = Math.floor(Math.random() * 7);
+      const postContent = contents[randomNumber].text;
+      const imagePaths = contents[randomNumber].images;
       await driver.get(groupUrl);
       await createFacebookPost(driver, postContent, imagePaths);
     }
+    
   } catch (err) {
     console.error("Có lỗi xảy ra:", err);
   } finally {

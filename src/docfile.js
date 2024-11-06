@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs'); 
 
 module.exports = function readGroupUrls() {
   return new Promise((resolve, reject) => {
@@ -9,7 +8,6 @@ module.exports = function readGroupUrls() {
         reject(err);
         return;
       }
-
       // Chuyển mỗi dòng thành một phần tử trong mảng
       const groupUrls = data.trim().split('\n');
       resolve(groupUrls);

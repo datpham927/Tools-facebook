@@ -10,12 +10,13 @@ async function createFacebookPost(driver, content, imagePaths) {
 
         await driver.wait(until.elementIsVisible(postButton), 500);
         await postButton.click();
-        await driver.sleep(500);
+        await driver.sleep(200);
         const postBox = await driver.wait(
             until.elementLocated(By.xpath("//div[@aria-label='Tạo bài viết công khai...'][@role='textbox']")),
            500
         );
         await postBox.click();
+        await driver.sleep(200);
         await postBox.sendKeys(content);
         let fileInput ;
         // Lặp lại quá trình đăng bài nếu gặp lỗi StaleElementReferenceError
@@ -34,10 +35,14 @@ async function createFacebookPost(driver, content, imagePaths) {
                     500
                 );
                 // Lặp qua từng đường dẫn hình ảnh và tải lên từng tệp
-                for (const imagePath of imagePaths) {
-                    await fileInput.sendKeys(imagePath);
-                    await driver.sleep(500); // Đợi một chút để tải lên tệp
+                for (const [index, imagePath] of imagePaths.entries()) {
+                    console.log("attempt",attempt)
+                    if (!(attempt === 2 && index === 0||attempt === 0 && index === 0||attempt === 1 && index === 0||attempt === 0 && index === 1||attempt === 1 && index === 1)) {
+                        await fileInput.sendKeys(imagePath);
+                        await driver.sleep(500); // Đợi một chút để tải lên tệp
+                    }
                 }
+                
                 await driver.sleep(500);
                 const postButtonElements = await driver.wait(
                     until.elementsLocated(By.css("div[aria-label='Đăng']")),
