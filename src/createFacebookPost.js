@@ -36,8 +36,7 @@ async function createFacebookPost(driver, content, imagePaths) {
                 );
                 // Lặp qua từng đường dẫn hình ảnh và tải lên từng tệp
                 for (const [index, imagePath] of imagePaths.entries()) {
-                    console.log("attempt",attempt)
-                    if (!(attempt === 2 && index === 0||attempt === 0 && index === 0||attempt === 1 && index === 0||attempt === 0 && index === 1||attempt === 1 && index === 1)) {
+                    if (!(attempt === 2 && index === 0||attempt === 3 && index === 0||attempt === 0 && index === 1||attempt === 1 && index === 1||attempt === 2 && index === 1)) {
                         await fileInput.sendKeys(imagePath);
                         await driver.sleep(500); // Đợi một chút để tải lên tệp
                     }

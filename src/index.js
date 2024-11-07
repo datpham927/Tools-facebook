@@ -20,11 +20,16 @@ async function postToFacebook() {
     // await loginToFacebook(driver);
      
     const groupUrls = await readGroupUrls();
+    let number =6;
+
     for (const groupUrl of groupUrls) {
+      number-=1;
       console.log("==== ",groupUrl,"====")
-      const randomNumber = Math.floor(Math.random() * 7);
-      const postContent = contents[randomNumber].text;
-      const imagePaths = contents[randomNumber].images;
+      const postContent = contents[number].text;
+      const imagePaths = contents[number].images;
+      if(number===0){
+        number=6
+      }
       await driver.get(groupUrl);
       await createFacebookPost(driver, postContent, imagePaths);
     }
