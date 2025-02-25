@@ -1,9 +1,9 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
- const {createFacebookPost}=require("./createFacebookPost")
- const readGroupUrls = require('./docfile');
- const contents = require('./content');
- 
+const { createFacebookPost } = require("./createFacebookPost")
+const readGroupUrls = require('./docfile');
+const contents = require('./content');
+
 
 async function postToFacebook() {
   const options = new firefox.Options();
@@ -15,25 +15,25 @@ async function postToFacebook() {
     .forBrowser('firefox')
     .setFirefoxOptions(options)
     .build();
-  
+
   try {
     // await loginToFacebook(driver);
-     
+
     const groupUrls = await readGroupUrls();
-    let number =6;
+    let number = 6;
 
     for (const groupUrl of groupUrls) {
-      number-=1;
-      console.log("==== ",groupUrl,"====")
-      const postContent = contents[number].text;
-      const imagePaths = contents[number].images;
-      if(number===0){
-        number=6
+      number -= 1;
+      console.log("==== ", groupUrl, "====")
+      const postContent = contents.text;
+      const imagePaths = contents.images;
+      if (number === 0) {
+        number = 6
       }
       await driver.get(groupUrl);
       await createFacebookPost(driver, postContent, imagePaths);
     }
-    
+
   } catch (err) {
     console.error("Có lỗi xảy ra:", err);
   } finally {
