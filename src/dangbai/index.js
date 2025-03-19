@@ -18,10 +18,8 @@ async function postToFacebook() {
 
   try {
     // await loginToFacebook(driver);
-
     const groupUrls = await readGroupUrls();
     let number = 6;
-
     for (const groupUrl of groupUrls) {
       number -= 1;
       console.log("==== ", groupUrl, "====")
