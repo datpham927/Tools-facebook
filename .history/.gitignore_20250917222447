@@ -1,0 +1,9 @@
+# Bỏ qua node_modules
+node_modules/
+
+# Bỏ qua file build
+dist/
+
+# Bỏ qua file cấu hình cá nhân
+.vscode/
+.env
